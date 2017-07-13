@@ -1,0 +1,38 @@
+{
+  "name": "single-cell-tsne-plot",
+  "version": "0.0.1",
+  "description": "Tsne plot",
+  "main": "index.js",
+  "author": "atlas-developers@ebi.ac.uk",
+  "license": "Apache-2.0",
+  "repository": "github.com/gxa/atlas-heatmap",
+  "private": true,
+  "dependencies": {
+    "lodash": "^4.17.2",
+    "react": "^0.14.7",
+    "react-addons-shallow-compare": "^0.14.7",
+    "react-bootstrap": "^0.29.5",
+    "react-dom": "^0.14.7",
+    "react-highcharts": "^8.3.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "clean-webpack-plugin": "^0.1.8",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.4",
+    "image-webpack-loader": "^1.6.3",
+    "imports-loader": "^0.6.5",
+    "json-loader": "^0.5.4",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "mocha": "^3.0.2",
+    "mocha-webpack": "^0.6.0",
+    "request": "^2.75.0",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
