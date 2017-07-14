@@ -1,0 +1,63 @@
+{
+  "name": "single-cell-gene-tsne-plot",
+  "version": "0.0.1",
+  "description": "Reference plot based on Teichmann Lab's paper and Guy Emerton's code",
+  "main": "index.js",
+  "author": "Elisabet Barrera <barrera@ebi.ac.uk>",
+  "scripts": {
+    "build": "babel src -d lib --ignore '**/*.less' --copy-files",
+    "prepublish": "npm run build"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gxa/tsne-plot"
+  },
+  "dependencies": {
+    "color": "^0.11.3",
+    "he": "^1.1.0",
+    "highcharts-custom-events": "^2.0.1",
+    "jquery": "^2.2.1",
+
+    "d3-array": "^1.2.0",
+    "d3-scale": "^1.0.6",
+
+    "lodash": "^4.17.2",
+    "prop-types": "^15.5.10",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-addons-shallow-compare": "^15.6.0",
+    "react-bootstrap": "^0.29.5",
+    "react-highcharts": "^8.3.2",
+
+    "object-hash": "^1.1.4",
+    "rc-slider": "^4.0.1",
+    "react-tooltip": "https://github.com/wbazant/react-tooltip/tarball/dist"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.16",
+
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.4",
+    "image-webpack-loader": "^1.6.3",
+    "imports-loader": "^0.6.5",
+    "json-loader": "^0.5.4",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "mocha": "^3.0.2",
+    "mocha-webpack": "^0.6.0",
+    "request": "^2.75.0",
+    "style-loader": "^0.13.0",
+
+    "webpack": "^2.6.0",
+    "webpack-dev-server": "^2.5.0",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "whatwg-fetch": "^2.0.3"
+  }
+}
