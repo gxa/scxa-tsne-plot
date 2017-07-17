@@ -4,9 +4,9 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        gene_tsne: './src/index.js',
+        gene_tsne: ['whatwg-fetch', './src/index.js'],
         dependencies: ['color', 'he', 'highcharts-custom-events', 'jquery', 'lodash',
-            'object-hash', 'rc-slider', 'react', 'react-bootstrap', 'react-dom', 'react-highcharts']
+            'object-hash', 'rc-slider', 'react', 'react-dom', 'react-highcharts']
     },
 
     output: {

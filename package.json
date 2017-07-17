@@ -2,7 +2,7 @@
   "name": "single-cell-gene-tsne-plot",
   "version": "0.0.3",
   "description": "Reference plot based on Teichmann Lab's paper and Guy Emerton's code",
-  "main": "index.js",
+  "main": "lib/index.js",
   "author": "Elisabet Barrera <barrera@ebi.ac.uk>",
   "scripts": {
     "build": "babel src -d lib --ignore '**/*.less' --copy-files",
@@ -26,7 +26,6 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-addons-shallow-compare": "^15.6.0",
-    "react-bootstrap": "^0.29.5",
     "react-highcharts": "^8.3.2",
     "object-hash": "^1.1.4",
     "rc-slider": "^4.0.1",
