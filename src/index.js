@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ReferencePlotContainer from './ReferencePlotContainer.js';
+import GeneTSNEPlotContainer from './GeneTSNEPlotContainer.js';
 
 const render = function (options, container) {
-    ReactDOM.render(<ReferencePlotContainer {...options} />, document.getElementById(container));
+    ReactDOM.render(<GeneTSNEPlotContainer {...options} />, document.getElementById(container));
 };
 
-export {ReferencePlotContainer as default, render};
+export {GeneTSNEPlotContainer as default, render};

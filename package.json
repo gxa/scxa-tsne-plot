@@ -19,6 +19,7 @@
     "highcharts-custom-events": "^2.0.1",
     "jquery": "^2.2.1",
 
+    "atlas-autocomplete": "latest",
     "d3-array": "^1.2.0",
     "d3-scale": "^1.0.6",
 

@@ -6,7 +6,8 @@ import {scaleLinear} from 'd3-scale';
 import range from 'lodash/range';
 
 import ScatterPlot from './ScatterPlot.js';
-import GeneAutocomplete from 'gene-autocomplete';
+import AtlasAutocomplete from 'atlas-autocomplete';
+
 import fetchExpressionData from './fetchExpressionData.js';
 
 const referencePlotOptions = {
@@ -103,7 +104,6 @@ const expressionPlotData = function (chosenGene, expressionData) {
     const allValues = [].concat.apply([], pointValues);
     const minValue = d3min(allValues);
     const maxValue = d3max(allValues);
-    // var meanValue = d3.mean(allValues);
     const meanValue = (maxValue - minValue) / 2 + minValue;
     const gradientDomain = [minValue, meanValue, maxValue];
     const colorScale = scaleLinear()
@@ -136,32 +136,39 @@ const expressionPlotData = function (chosenGene, expressionData) {
 }
 
 
-class ReferencePlotContainer extends React.Component {
+class GeneTSNEPlotContainer extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             expressionPlotData: expressionPlotData("", {}),
             loading: false,
-            values: []
+            geneSelected: ""
         }
+
+        this.geneSelectedOnChange = this._geneSelectedOnChange.bind(this);
     }
 
     fetchExpressionPlotData(chosenItem) {
-        if (chosenItem.value) {
-            const url = this.props.referenceDataSourceUrlTemplate.replace(/\{0\}/, JSON.stringify([chosenItem]))
+        if (chosenItem) {
+            const url = this.props.referenceDataSourceUrlTemplate.replace(/\{0\}/, chosenItem)
             this.setState({loading: true},
                 fetchExpressionData(chosenItem, url, (expressionData) => {
                     this.setState({
                         loading: false,
-                        expressionPlotData: expressionPlotData(chosenItem.value, expressionData),
+                        expressionPlotData: expressionPlotData(chosenItem, expressionData),
                     })
-                    console.info ("EXPRESSION DATA: " + expressionData);
                 })
             )
         } else {
             this.setState({loading: false, expressionPlotData: expressionPlotData("", {})})
         }
+    }
+
+    _geneSelectedOnChange(value) {
+        this.setState({geneSelected: value});
+
+        this.fetchExpressionPlotData(value);
     }
 
     render() {
@@ -172,24 +179,19 @@ class ReferencePlotContainer extends React.Component {
                     Gene expression plot
                 </h5>
 
-                {/*<div className="row">*/}
-                    {/*<div className="small-12 medium-6 medium-offset-6 columns">*/}
-                        {/*<span style={{margin: "2rem"}}>*/}
-                          {/*Search for gene:*/}
-                        {/*</span>*/}
-                        {/*<GeneAutocomplete onChangeValues={this.fetchExpressionPlotData} values={this.state.values}*/}
-                                          {/*suggesterUrlTemplate={"https://www.ebi.ac.uk/gxa/json/suggestions?query={0}&species=mus_musculus"}/>*/}
-                    {/*</div>*/}
-                {/*</div>*/}
-
+                <AtlasAutocomplete atlasUrl={this.props.atlasUrl}
+                                   suggesterEndpoint={this.props.suggesterEndpoint}
+                                   showOnlyGeneAutocomplete={true}
+                                   geneBoxStyle={'columns small-5 small-offset-7'}
+                                   onSelect={this.geneSelectedOnChange}
+                />
                 <div className="row">
-
-                    <div className="small-12 medium-6 columns">
+                    <div className="columns small-6 small-offset-6 margin-top-large">
                         { this.state.loading ?
                             <div>
                                 <img src={"https://www.ebi.ac.uk/gxa/resources/images/loading.gif"}/>
                             </div> :
-                             <ScatterPlot {...this.state.expressionPlotData} />
+                            <ScatterPlot {...this.state.expressionPlotData}/>
                         }
                     </div>
                 </div>
@@ -197,8 +199,10 @@ class ReferencePlotContainer extends React.Component {
         )
     }
 }
-ReferencePlotContainer.propTypes = {
-    referenceDataSourceUrlTemplate: PropTypes.string
+GeneTSNEPlotContainer.propTypes = {
+    referenceDataSourceUrlTemplate: PropTypes.string,
+    altasUrl: PropTypes.string.isRequired,
+    suggesterEndpoint: PropTypes.string.isRequired
 };
 
-export default ReferencePlotContainer;
+export default GeneTSNEPlotContainer;
