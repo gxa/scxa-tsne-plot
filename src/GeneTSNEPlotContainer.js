@@ -175,18 +175,14 @@ class GeneTSNEPlotContainer extends React.Component {
 
         return (
             <div>
-                <h5>
-                    Gene expression plot
-                </h5>
-
                 <AtlasAutocomplete atlasUrl={this.props.atlasUrl}
                                    suggesterEndpoint={this.props.suggesterEndpoint}
                                    showOnlyGeneAutocomplete={true}
-                                   geneBoxStyle={'columns small-5 small-offset-7'}
+                                   geneBoxStyle={'columns small-5'}
                                    onSelect={this.geneSelectedOnChange}
                 />
                 <div className="row">
-                    <div className="columns small-6 small-offset-6 margin-top-large">
+                    <div className="columns small-6 margin-top-large">
                         { this.state.loading ?
                             <div>
                                 <img src={"https://www.ebi.ac.uk/gxa/resources/images/loading.gif"}/>
