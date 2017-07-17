@@ -1,6 +1,6 @@
 {
   "name": "single-cell-gene-tsne-plot",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Reference plot based on Teichmann Lab's paper and Guy Emerton's code",
   "main": "index.js",
   "author": "Elisabet Barrera <barrera@ebi.ac.uk>",
@@ -18,11 +18,9 @@
     "he": "^1.1.0",
     "highcharts-custom-events": "^2.0.1",
     "jquery": "^2.2.1",
-
     "atlas-autocomplete": "latest",
     "d3-array": "^1.2.0",
     "d3-scale": "^1.0.6",
-
     "lodash": "^4.17.2",
     "prop-types": "^15.5.10",
     "react": "^15.4.2",
@@ -30,7 +28,6 @@
     "react-addons-shallow-compare": "^15.6.0",
     "react-bootstrap": "^0.29.5",
     "react-highcharts": "^8.3.2",
-
     "object-hash": "^1.1.4",
     "rc-slider": "^4.0.1",
     "react-tooltip": "https://github.com/wbazant/react-tooltip/tarball/dist"
@@ -43,7 +40,6 @@
     "babel-preset-env": "^1.5.2",
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
-
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.4",
     "image-webpack-loader": "^1.6.3",
@@ -55,7 +51,6 @@
     "mocha-webpack": "^0.6.0",
     "request": "^2.75.0",
     "style-loader": "^0.13.0",
-
     "webpack": "^2.6.0",
     "webpack-dev-server": "^2.5.0",
     "react-hot-loader": "^3.0.0-beta.7",
