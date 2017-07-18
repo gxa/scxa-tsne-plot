@@ -174,15 +174,15 @@ class GeneTSNEPlotContainer extends React.Component {
     render() {
 
         return (
-            <div>
+            <div className="row">
                 <AtlasAutocomplete atlasUrl={this.props.atlasUrl}
                                    suggesterEndpoint={this.props.suggesterEndpoint}
                                    showOnlyGeneAutocomplete={true}
-                                   geneBoxStyle={'columns small-5'}
+                                   geneBoxStyle={'columns small-6'}
                                    onSelect={this.geneSelectedOnChange}
                 />
                 <div className="row">
-                    <div className="columns small-6 margin-top-large">
+                    <div className="columns small-12 margin-top-large">
                         { this.state.loading ?
                             <div>
                                 <img src={"https://www.ebi.ac.uk/gxa/resources/images/loading.gif"}/>
@@ -197,7 +197,7 @@ class GeneTSNEPlotContainer extends React.Component {
 }
 GeneTSNEPlotContainer.propTypes = {
     referenceDataSourceUrlTemplate: PropTypes.string,
-    altasUrl: PropTypes.string.isRequired,
+    atlasUrl: PropTypes.string.isRequired,
     suggesterEndpoint: PropTypes.string.isRequired
 };
 
