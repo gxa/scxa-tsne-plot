@@ -1,6 +1,6 @@
 {
   "name": "single-cell-gene-tsne-plot",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Reference plot based on Teichmann Lab's paper and Guy Emerton's code",
   "main": "lib/index.js",
   "author": "Elisabet Barrera <barrera@ebi.ac.uk>",
