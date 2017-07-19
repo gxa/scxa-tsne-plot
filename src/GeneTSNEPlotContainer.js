@@ -200,7 +200,7 @@ GeneTSNEPlotContainer.propTypes = {
     atlasUrl: PropTypes.string.isRequired,
     suggesterEndpoint: PropTypes.string.isRequired,
     referenceDataSourceUrlTemplate: PropTypes.string,
-    onSelect: PropTypes.string
+    onSelect: PropTypes.func
 };
 
 export default GeneTSNEPlotContainer;
