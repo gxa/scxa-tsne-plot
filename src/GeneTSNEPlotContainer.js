@@ -179,6 +179,7 @@ class GeneTSNEPlotContainer extends React.Component {
                 <AtlasAutocomplete atlasUrl={this.props.atlasUrl}
                                    suggesterEndpoint={this.props.suggesterEndpoint}
                                    showOnlyGeneAutocomplete={true}
+                                   initialValue={this.props.geneId}
                                    geneBoxStyle={'columns small-6'}
                                    onSelect={this.geneSelectedOnChange}
                 />
@@ -200,6 +201,7 @@ GeneTSNEPlotContainer.propTypes = {
     atlasUrl: PropTypes.string.isRequired,
     suggesterEndpoint: PropTypes.string.isRequired,
     referenceDataSourceUrlTemplate: PropTypes.string,
+    geneId: PropTypes.string,
     onSelect: PropTypes.func
 };
 
