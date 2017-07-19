@@ -169,6 +169,7 @@ class GeneTSNEPlotContainer extends React.Component {
         this.setState({geneSelected: value});
 
         this.fetchExpressionPlotData(value);
+        this.props.onSelect(value);
     }
 
     render() {
@@ -196,9 +197,10 @@ class GeneTSNEPlotContainer extends React.Component {
     }
 }
 GeneTSNEPlotContainer.propTypes = {
-    referenceDataSourceUrlTemplate: PropTypes.string,
     atlasUrl: PropTypes.string.isRequired,
-    suggesterEndpoint: PropTypes.string.isRequired
+    suggesterEndpoint: PropTypes.string.isRequired,
+    referenceDataSourceUrlTemplate: PropTypes.string,
+    onSelect: PropTypes.string
 };
 
 export default GeneTSNEPlotContainer;
