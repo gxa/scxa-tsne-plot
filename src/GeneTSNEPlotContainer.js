@@ -176,6 +176,10 @@ class GeneTSNEPlotContainer extends React.Component {
         this.fetchExpressionPlotData(this.props.geneId);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.fetchExpressionPlotData(nextProps.geneId);
+    }
+
     render() {
 
         return (
