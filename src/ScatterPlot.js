@@ -46,6 +46,7 @@ const baseOptions = {
             }
         },
         series: {
+            turboThreshold: 0,
             color: 'grey'
         }
     }
@@ -61,16 +62,31 @@ class ScatterPlot extends React.Component {
         return shallowCompare(this, nextProps, nextState);
     }
 
+    highlightClusterPointRandomly() {
+        this.refs.chart.chart.series.forEach(thisSeries => {
+            thisSeries.data.forEach(point => {
+                const random_color = Math.floor(Math.random() * (100));
+                point.graphic.attr({ fill: `hsl(230, ${random_color}%, 50%`});
+            })
+        })
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.geneChanged !== this.props.geneChanged) {
+            this.highlightClusterPointRandomly();
+        }
+    }
+
+    // componentDidMount() {
+    //     this.highlightClusterPointRandomly();
+    // }
+
     render() {
 
         const config = Object.assign({},
             baseOptions,
             this.props.options,
-            {series: this.props.dataset},
-            {colorAxis: {
-                dataClasses: this.props.colorRanges
-                }
-            }
+            {series: this.props.dataset}
         );
 
         return (
@@ -84,7 +100,7 @@ class ScatterPlot extends React.Component {
 ScatterPlot.propTypes = {
     dataset: PropTypes.array.isRequired,
     options: PropTypes.object.isRequired,
-    colorRanges: PropTypes.array.isRequired
+    geneChanged: PropTypes.bool
 };
 
 export default ScatterPlot;

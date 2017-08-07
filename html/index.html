@@ -19,6 +19,8 @@
     <script src="../dist/vendorCommons.bundle.js"></script>
     <script src="../dist/gene_tsne.bundle.js"></script>
 
+    <script src="../src/clusters.js"></script>
+
     <link rel="stylesheet" href="https://www.ebi.ac.uk/gxa/resources/css/customized-bootstrap-3.3.5.css">
 </head>
 
@@ -31,6 +33,9 @@
         referenceDataSourceUrlTemplate: "http://localhost:9090/gxa_sc/json/experiments/E-MTAB-4388/expression?query={0}",
         atlasUrl: "http://localhost:9090/gxa_sc/",
         suggesterEndpoint: "json/suggestions",
+        clustersData: data,
+        clusterId: [1,4],
+        k: "sc3_9_clusters",
         geneId: "ENSMUSG00000005057"
     }, 'container');
 </script>
