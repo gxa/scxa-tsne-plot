@@ -75,10 +75,6 @@ class GeneTSNEPlotContainer extends React.Component {
         this.setState({ geneChanged: true });
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({ geneChanged: true });
-    // }
-
     render() {
 
         const clusterSelected = this.props.k ? this.props.k : Object.keys(this.props.clustersData)[0];
@@ -114,7 +110,7 @@ GeneTSNEPlotContainer.propTypes = {
     suggesterEndpoint: PropTypes.string.isRequired,
     referenceDataSourceUrlTemplate: PropTypes.string,
     clustersData: PropTypes.object.isRequired,
-    k: PropTypes.string,
+    k: PropTypes.number,
     geneId: PropTypes.string,
     onSelect: PropTypes.func
 };

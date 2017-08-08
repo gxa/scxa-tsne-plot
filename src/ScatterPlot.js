@@ -104,7 +104,7 @@ class ScatterPlot extends React.Component {
 ScatterPlot.propTypes = {
     dataset: PropTypes.array.isRequired,
     options: PropTypes.object.isRequired,
-    k: PropTypes.string,
+    k: PropTypes.number,
     geneChanged: PropTypes.bool
 };
 
