@@ -72,7 +72,11 @@ class ScatterPlot extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.geneChanged !== this.props.geneChanged) {
+        if (prevProps.geneChanged !== this.props.geneChanged) {
+            this.highlightClusterPointRandomly();
+        }
+
+        if (prevProps.k !== this.props.k) {
             this.highlightClusterPointRandomly();
         }
     }
@@ -100,6 +104,7 @@ class ScatterPlot extends React.Component {
 ScatterPlot.propTypes = {
     dataset: PropTypes.array.isRequired,
     options: PropTypes.object.isRequired,
+    k: PropTypes.string,
     geneChanged: PropTypes.bool
 };
 

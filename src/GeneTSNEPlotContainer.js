@@ -100,6 +100,7 @@ class GeneTSNEPlotContainer extends React.Component {
                             </div> :
                             <ScatterPlot dataset={getDataSeries(getSeriesMap(this.props.clustersData, clusterSelected))}
                                          options={referencePlotOptions}
+                                         k={clusterSelected}
                                          geneChanged={this.state.geneChanged} />
                         }
                     </div>
