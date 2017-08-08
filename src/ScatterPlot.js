@@ -81,9 +81,9 @@ class ScatterPlot extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //     this.highlightClusterPointRandomly();
-    // }
+    componentDidMount() {
+        this.highlightClusterPointRandomly();
+    }
 
     render() {
 
