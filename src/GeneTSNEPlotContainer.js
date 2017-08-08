@@ -75,9 +75,9 @@ class GeneTSNEPlotContainer extends React.Component {
         this.setState({ geneChanged: true });
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({ geneChanged: true });
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     this.setState({ geneChanged: true });
+    // }
 
     render() {
 
