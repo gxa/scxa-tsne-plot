@@ -66,7 +66,7 @@ class GeneTSNEPlotContainer extends React.Component {
 
     _geneSelectedOnChange(value) {
         this.setState({ geneSelected: value,
-                        geneChanged: true});
+                        geneChanged: !this.state.geneChanged});
 
         this.props.onSelect(value);
     }
