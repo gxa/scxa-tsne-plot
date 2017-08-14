@@ -2,13 +2,11 @@ var webpack = require('webpack');
 var path = require('path');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
-// If you get the message “loaderUtils.parseQuery() received a non-string value...” uncomment next line
-// process.traceDeprecation = true;
-
 module.exports = {
     entry: {
-        myPackage: './html/render.js',
-        dependencies: ['prop-types', 'react', 'react-dom', 'urijs']
+        gene_tsne: ['whatwg-fetch', './src/index.js'],
+        dependencies: ['color', 'he', 'highcharts-custom-events', 'jquery', 'lodash',
+            'object-hash', 'rc-slider', 'react', 'react-dom', 'react-highcharts']
     },
 
     output: {
@@ -32,10 +30,6 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: [ 'style-loader', 'css-loader' ]
-            },
-            {
-                test: /\.less$/i,
-                use: [ 'style-loader', 'css-loader', 'less-loader' ]
             },
             {
                 test: /\.(jpe?g|png|gif)$/i,
@@ -70,21 +64,6 @@ module.exports = {
                 ]
             },
             {
-                test: /\.svg$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            query: {
-                                name: '[hash].[ext]',
-                                hash: 'sha512',
-                                digest: 'hex'
-                            }
-                        }
-                    }
-                ]
-            },
-            {
                 test: /\.js$/i,
                 exclude: /node_modules\//,
                 use: 'babel-loader'
@@ -96,3 +75,4 @@ module.exports = {
         port: 9000
     }
 };
+

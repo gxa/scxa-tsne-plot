@@ -1,3 +1,10 @@
-import MyComponent from './MyComponent.js'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-export default MyComponent
+import GeneTSNEPlotContainer from './GeneTSNEPlotContainer.js';
+
+const render = function (options, container) {
+    ReactDOM.render(<GeneTSNEPlotContainer {...options} />, document.getElementById(container));
+};
+
+export {GeneTSNEPlotContainer as default, render};
