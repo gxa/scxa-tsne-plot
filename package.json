@@ -14,8 +14,10 @@
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
     }
   },
-  "author": "Elisabet Barrera <barrera@ebi.ac.uk>",
+  "author": "Expression Atlas developers <arrayexpress-atlas@ebi.ac.uk>",
   "collaborators": [
+    "Elisabet Barrera <barrera@ebi.ac.uk>",
+    "Wojciech Bażant <wbazant@ebi.ac.uk>",
     "Alfonso Muñoz-Pomer Fuentes <amunoz@ebi.ac.uk>"
   ],
   "license": "Apache-2.0",
