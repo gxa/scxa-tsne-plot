@@ -1,43 +1,35 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
+<html lang="en">
+<head>
+    <title>Demo</title>
 
-    <title>Reference plot demo</title>
-    <link rel="stylesheet"
-          href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/libraries/foundation-6/css/foundation.css"
-          type="text/css" media="all">
-    <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/css/ebi-global.css"
-          type="text/css" media="all">
-    <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Icon-fonts/v1.1/fonts.css" type="text/css"
-          media="all">
-    <link rel="stylesheet" href="https://www.ebi.ac.uk/gxa/resources/css/foundation/atlas.css" type="text/css"
-          media="all">
-    <link rel="stylesheet" href="https://www.ebi.ac.uk/gxa/resources/css/foundation/theme-atlas.css" type="text/css"
-          media="all">
+    <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.2/libraries/foundation-6/css/foundation.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.2/css/ebi-global.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Icon-fonts/v1.2/fonts.css" type="text/css" media="all" />
 
-    <script src="../dist/vendorCommons.bundle.js"></script>
-    <script src="../dist/gene_tsne.bundle.js"></script>
-
-    <script src="../src/clusters.js"></script>
-
-    <link rel="stylesheet" href="https://www.ebi.ac.uk/gxa/resources/css/customized-bootstrap-3.3.5.css">
+    <link rel="stylesheet" href="https://www.ebi.ac.uk/gxa/resources/css/foundation/atlas.css" type="text/css" media="all">
 </head>
 
 <body>
-    <div id="container"></div>
+<div id="wrapper" class="row">
+    <div id="content" class="small-12 columns">
+        <div id="target">
+        </div>
+    </div>
+</div>
 </body>
 
+<script src="vendorCommons.bundle.js"></script>
+<script src="tSnePlotDemo.bundle.js"></script>
+
+<!-- Set to http://localhost:8080/gxa/ or http://localhost:8080/gxa_sc/ -->
 <script>
-    gene_tsne.render({
-        referenceDataSourceUrlTemplate: "http://localhost:9090/gxa_sc/json/experiments/E-MTAB-4388/expression?query={0}",
-        atlasUrl: "http://localhost:9090/gxa_sc/",
-        suggesterEndpoint: "json/suggestions",
-        clustersData: data,
-        clusterId: [1,4],
-        k: "sc3_6_clusters",
-        geneId: "ENSMUSG00000005057"
-    }, 'container');
+  tSnePlotDemo.render({
+//    atlasUrl: 'http://localhost:8080/gxa_sc/',
+//    experimentAccession: 'E-MTAB-4388',
+//    plotType: 'clusters',
+//    queryValue: '3' // 'clusters' or 'expression'
+  }, 'target')
 </script>
 
 </html>
