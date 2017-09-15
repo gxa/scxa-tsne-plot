@@ -15,25 +15,24 @@
     }
   },
   "author": "Elisabet Barrera <barrera@ebi.ac.uk>",
-  "collaborators": [ "Alfonso Muñoz-Pomer Fuentes <amunoz@ebi.ac.uk>" ],
+  "collaborators": [
+    "Alfonso Muñoz-Pomer Fuentes <amunoz@ebi.ac.uk>"
+  ],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/gxa/sca-tsne-plot.git"
   },
   "dependencies": {
-    "urijs": "^1.18.10",
-    "color": "^0.11.3",
-    "he": "^1.1.0",
-    "highcharts-custom-events": "^2.0.1",
-    "jquery": "^2.2.1",
-    "atlas-autocomplete": "latest",
+    "color": "^2.0.0",
+    "highcharts": "^5.0.14",
     "prop-types": "^15.5.10",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-addons-shallow-compare": "^15.6.0",
-    "react-highcharts": "^8.3.2",
-    "object-hash": "^1.1.4"
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-highcharts": "^12.0.0",
+    "react-refetch": "^1.0.0",
+    "recompose": "^0.25.0",
+    "urijs": "^1.18.12"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -43,17 +42,18 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
-    "enzyme": "^2.9.1",
-    "jest": "^20.0.4",
-    "react-test-renderer": "^15.6.1",
     "css-loader": "^0.23.1",
+    "enzyme": "^2.9.1",
     "file-loader": "^0.8.4",
     "image-webpack-loader": "^1.6.3",
     "imports-loader": "^0.6.5",
+    "jest": "^20.0.4",
     "json-loader": "^0.5.4",
+    "react-test-renderer": "^15.6.1",
     "request": "^2.75.0",
     "style-loader": "^0.13.0",
-    "webpack": "^2.6.0",
-    "webpack-dev-server": "^2.5.0",
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1",
+    "whatwg-fetch": "^2.0.3"
   }
 }
