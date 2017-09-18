@@ -1,6 +1,6 @@
 {
-  "name": "single-cell-atlas-tsne-plot",
-  "version": "0.0.1",
+  "name": "single-cell-expression-atlas-tsne-plot",
+  "version": "0.1.0",
   "description": "Scatter plot of t-SNE plots in Single Cell Atlas. It groups cells into pre-computed clusters and colours them according to gene expression.",
   "main": "lib/index.js",
   "scripts": {
