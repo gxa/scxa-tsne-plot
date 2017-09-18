@@ -4,7 +4,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
-    tSnePlotDemo: ['whatwg-fetch', './html/Demo.js'],
+    tSnePlotDemo: ['whatwg-fetch', 'babel-polyfill', './html/Demo.js'],
     dependencies: ['prop-types', 'react', 'react-dom', 'react-highcharts', 'react-refetch', 'recompose']
   },
 

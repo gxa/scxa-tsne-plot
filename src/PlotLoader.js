@@ -10,19 +10,29 @@ class PlotLoader extends React.Component {
 
     this.state = {
       timestamp: 0,
-      series: []
+      series: [],
+      error: null
     }
   }
 
-  _fetch(base, endpoint) {
-    fetch(URI(endpoint, base).toString())
-      .then((response) => response.json())
-      .then((json) => { this.setState({timestamp: Date.now(), series: json}, this.forceUpdate) })
+  async _fetchAndUpdate(base, endpoint) {
+    try {
+      const response = await fetch(URI(endpoint, base).toString())
+      this.setState(
+        {
+          timestamp: Date.now(),
+          series: await response.json()
+        },
+        this.forceUpdate)
+    }
+    catch (err) {
+      console.log(`Fetch failed`, err)
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.sourceUrl !== nextProps.sourceUrl || this.props.atlasUrl !== nextProps.atlasUrl) {
-      this._fetch(nextProps.atlasUrl, nextProps.sourceUrl)
+      this._fetchAndUpdate(nextProps.atlasUrl, nextProps.sourceUrl)
     }
   }
 
@@ -31,7 +41,7 @@ class PlotLoader extends React.Component {
   }
 
   componentDidMount() {
-    this._fetch(this.props.atlasUrl, this.props.sourceUrl)
+    this._fetchAndUpdate(this.props.atlasUrl, this.props.sourceUrl)
   }
 
   render() {
