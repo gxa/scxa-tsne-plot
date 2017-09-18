@@ -48,7 +48,7 @@ const countPoints = (series) => {
   return series.reduce((acc, serie) => acc + serie.data.length, 0)
 }
 
-class ManagedAsyncScatterPlot extends React.Component {
+class ManagedScatterPlot extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -185,7 +185,7 @@ class ManagedAsyncScatterPlot extends React.Component {
   }
 }
 
-ManagedAsyncScatterPlot.propTypes = {
+ManagedScatterPlot.propTypes = {
   sourceUrl: PropTypes.string.isRequired,
   title: PropTypes.string,
   xAxisTitleText: PropTypes.string,
@@ -194,4 +194,4 @@ ManagedAsyncScatterPlot.propTypes = {
 
 export default connect(props => ({
   sourceUrlFetch: props.sourceUrl
-}))(ManagedAsyncScatterPlot)
+}))(ManagedScatterPlot)
