@@ -1,7 +1,7 @@
 {
-  "name": "single-cell-expression-atlas-tsne-plot",
+  "name": "expression-atlas-tsne-plot",
   "version": "0.1.0",
-  "description": "Scatter plot of t-SNE plots in Single Cell Atlas. It groups cells into pre-computed clusters and colours them according to gene expression.",
+  "description": "A t-SNE visualisation component for Single Cell Expression Atlas",
   "main": "lib/index.js",
   "scripts": {
     "dist": "NODE_ENV=production webpack --optimize-minimize",
@@ -23,7 +23,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gxa/sca-tsne-plot.git"
+    "url": "https://github.com/gxa/scxa-tsne-plot.git"
   },
   "dependencies": {
     "color": "^2.0.0",
