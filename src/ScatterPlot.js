@@ -22,7 +22,7 @@ const ScatterPlot = (props) => {
       zoomType: `xy`,
       borderWidth: 1,
       borderColor: `dark blue`,
-      height: 800
+      height: props.height || `100%`
     },
     boost: {
       useGPUTranslations: true,
@@ -76,10 +76,12 @@ const ScatterPlot = (props) => {
 }
 
 ScatterPlot.propTypes = {
-  series: PropTypes.array
+  series: PropTypes.array,
+  highlightSeries: PropTypes.array,
+  height: PropTypes.number
 }
 
-const colorizeAndRound3DSeries = (series) => {
+const colourizeSingleSeries = (series) => {
   const min = Math.min(...series.data.map((point) => point.z))
   const max = Math.max(...series.data.map((point) => point.z))
 
@@ -97,11 +99,26 @@ const colorizeAndRound3DSeries = (series) => {
   return { data: seriesData }
 }
 
+const colourizeMultipleSeries = (highlightSeries) =>
+  (series) => ({
+    name: series.name,
+    data: series.data.map((point) => {
+      if (!highlightSeries.length || highlightSeries.includes(series.name)) {
+        return point
+      } else {
+        return {
+          ...point,
+          color: `lightgrey`
+        }
+      }
+    })
+  })
+
 // If there’s only one series, add colour and round value; otherwise pass through
-const mapSeries = mapProps(({series}) => ({
+const mapSeriesToColourizedSeries = mapProps(({series, highlightSeries}) => ({
   series: series.length === 1 ?
-    [ colorizeAndRound3DSeries(series[0]) ] :
-    series
+    series.map(colourizeSingleSeries) :
+    series.map(colourizeMultipleSeries(highlightSeries))
 }))
 
 // Add tooltip and radius depending on the number of series and points
@@ -124,4 +141,4 @@ const withTooltipAndMarkerRadius = withProps(({series}) => {
   }
 })
 
-export default compose(mapSeries, withTooltipAndMarkerRadius)(ScatterPlot)
+export default compose(mapSeriesToColourizedSeries, withTooltipAndMarkerRadius)(ScatterPlot)
