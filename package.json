@@ -1,6 +1,6 @@
 {
   "name": "expression-atlas-tsne-plot",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "description": "A t-SNE visualisation component for Single Cell Expression Atlas",
   "main": "lib/index.js",
   "scripts": {
