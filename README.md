@@ -1,6 +1,6 @@
 # Single Cell Atlas t-SNE scatter plot
 
-An aesthetically-opinionated Highcharts scatter plot which gets the displayed data over the network using `fetch`.
+An aesthetically-opinionated Highcharts scatter plot which gets the displayed data over the network using `fetch`. Tailored and somewhat coupled (read below) to [Single Cell Expression Atlas](https://github.com/gxa/atlas/tree/master/sc). However it is simple and general enough to be easily modifiable. 
 
 There are two render modes: cluster mode and gene expression mode.
 
