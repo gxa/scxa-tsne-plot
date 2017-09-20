@@ -63,6 +63,10 @@ module.exports = {
         ]
       },
       {
+        test: /\.svg$/i,
+        use: 'file-loader'
+      },
+      {
         test: /\.js$/i,
         exclude: /node_modules\//,
         use: 'babel-loader'
