@@ -1,43 +1,64 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import DynamicScatterPlot from '../src/index'
+import ScatterPlot from '../src/index'
 
 class Demo extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      inputValue: `json/experiments/E-MTAB-4388/tsneplot/clusters/2`,
-      sourceUrl: `json/experiments/E-MTAB-4388/tsneplot/clusters/2`
+      inputBaseUrl: `https://localhost:8443/gxa_sc/`,
+      baseUrl: `https://localhost:8443/gxa_sc/`,
+      inputSourceUrl: `json/experiments/E-MTAB-4388/tsneplot/clusters/2`,
+      sourceUrl: `json/experiments/E-MTAB-4388/tsneplot/clusters/2`,
+      inputHighlightSeries: ``,
+      highlightSeries: ``
     }
 
     this._handleInputChange = this._handleInputChange.bind(this)
     this._handleSubmit = this._handleSubmit.bind(this)
   }
 
-  _handleInputChange(event) {
-    this.setState({
-      inputValue: event.target.value
-    })
+  _handleInputChange(stateField) {
+    return (event) => {
+      this.setState({
+        [stateField]: event.target.value
+      })
+    }
   }
 
   _handleSubmit(event) {
     event.preventDefault()
 
     this.setState({
-      sourceUrl: this.state.inputValue
+      sourceUrl: this.state.inputSourceUrl,
+      highlightSeries: this.state.inputHighlightSeries
     })
   }
 
   render() {
     return (
       <div>
-        <DynamicScatterPlot sourceUrl={this.state.sourceUrl} atlasUrl={`https://localhost:8443/gxa_sc/`}/>
-        <form onSubmit={this._handleSubmit}>
-          <input type={`text`} onChange={this._handleInputChange} value={this.state.inputValue}/>
-          <input className={`button`} type="submit" value="Submit" />
-        </form>
+        <div className={`row column`}>
+          <ScatterPlot atlasUrl={this.state.baseUrl}
+                       sourceUrl={this.state.sourceUrl}
+                       highlightSeries={
+                         this.state.highlightSeries.split(`,`).map((str) => str.trim()).filter(str => str.length)
+                       } />
+        </div>
+
+        <div className={`row column`}>
+          <form onSubmit={this._handleSubmit}>
+            <label>Base URL:</label>
+            <input type={`text`} onChange={this._handleInputChange(`inputBaseUrl`)} value={this.state.inputBaseUrl}/>
+            <label>Endpoint (returns a <a href="http://api.highcharts.com/highcharts/series%3Cscatter%3E.data">series&lt;scatter&gt;.data</a> object):</label>
+            <input type={`text`} onChange={this._handleInputChange(`inputSourceUrl`)} value={this.state.inputSourceUrl}/>
+            <label>Clusters to highlight separated by commas (if none are given, all will be coloured):</label>
+            <input type={`text`} onChange={this._handleInputChange(`inputHighlightSeries`)} value={this.state.inputHighlightSeries}/>
+            <input className={`button`} type="submit" value="Submit" />
+          </form>
+        </div>
       </div>
     )
   }
