@@ -11,9 +11,7 @@ class Demo extends React.Component {
       inputBaseUrl: `https://localhost:8443/gxa_sc/`,
       baseUrl: `https://localhost:8443/gxa_sc/`,
       inputSourceUrl: `json/experiments/E-MTAB-4388/tsneplot/clusters/2`,
-      sourceUrl: `json/experiments/E-MTAB-4388/tsneplot/clusters/2`,
-      inputHighlightSeries: ``,
-      highlightSeries: ``
+      sourceUrl: `json/experiments/E-MTAB-4388/tsneplot/clusters/2`
     }
 
     this._handleInputChange = this._handleInputChange.bind(this)
@@ -42,10 +40,7 @@ class Demo extends React.Component {
       <div>
         <div className={`row column`}>
           <ScatterPlot atlasUrl={this.state.baseUrl}
-                       sourceUrl={this.state.sourceUrl}
-                       highlightSeries={
-                         this.state.highlightSeries.split(`,`).map((str) => str.trim()).filter(str => str.length)
-                       } />
+                       sourceUrl={this.state.sourceUrl}/>
         </div>
 
         <div className={`row column`}>
@@ -54,8 +49,6 @@ class Demo extends React.Component {
             <input type={`text`} onChange={this._handleInputChange(`inputBaseUrl`)} value={this.state.inputBaseUrl}/>
             <label>Endpoint (returns a <a href="http://api.highcharts.com/highcharts/series%3Cscatter%3E.data">series&lt;scatter&gt;.data</a> object):</label>
             <input type={`text`} onChange={this._handleInputChange(`inputSourceUrl`)} value={this.state.inputSourceUrl}/>
-            <label>Clusters to highlight separated by commas (if none are given, all will be coloured):</label>
-            <input type={`text`} onChange={this._handleInputChange(`inputHighlightSeries`)} value={this.state.inputHighlightSeries}/>
             <input className={`button`} type="submit" value="Submit" />
           </form>
         </div>
