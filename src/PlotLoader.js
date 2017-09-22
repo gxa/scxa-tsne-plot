@@ -50,7 +50,7 @@ class PlotLoader extends React.Component {
   }
 
   render() {
-    const {height, highlightSeries, resourcesUrl} = this.props
+    const {resourcesUrl, seriesMapper, highchartsConfig} = this.props
     const {series, loading, error} = this.state
 
     return(
@@ -58,9 +58,8 @@ class PlotLoader extends React.Component {
         <div style={{textAlign: `center`}}><p>Error: {error.toString()}</p></div> :
 
         <div style={{position: `relative`}}>
-          <ScatterPlot series={series} highlightSeries={highlightSeries} height={height}/>
-          <LoadingOverlay show={loading}
-                          resourcesUrl={resourcesUrl}/>
+          <ScatterPlot series={seriesMapper(series)} highchartsConfig={highchartsConfig}/>
+          <LoadingOverlay show={loading} resourcesUrl={resourcesUrl}/>
         </div>
     )
   }
@@ -70,8 +69,13 @@ PlotLoader.propTypes = {
   atlasUrl: PropTypes.string.isRequired,
   sourceUrl: PropTypes.string.isRequired,
   resourcesUrl: PropTypes.string,
-  highlightSeries: PropTypes.array,
-  height: PropTypes.number
+  seriesMapper: PropTypes.func,
+  highchartsConfig: PropTypes.object
+}
+
+PlotLoader.defaultProps = {
+  seriesMapper: (series) => series,
+  highchartsConfig: {}
 }
 
 export default PlotLoader

@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { mapProps, withProps, compose } from 'recompose'
 import ReactHighcharts from 'react-highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsBoost from 'highcharts/modules/boost'
 
-import Color from 'color'
 import './util/MathRound10'
 
 const Highcharts = ReactHighcharts.Highcharts
@@ -13,6 +11,8 @@ HighchartsExporting(Highcharts)
 HighchartsBoost(Highcharts)
 
 const ScatterPlot = (props) => {
+  const numPoints = props.series.reduce((acc, aSeries) => acc + aSeries.data.length, 0)
+
   const config = {
     credits: {
       enabled: false
@@ -22,7 +22,7 @@ const ScatterPlot = (props) => {
       zoomType: `xy`,
       borderWidth: 1,
       borderColor: `dark blue`,
-      height: props.height || `100%`
+      height: `100%`
     },
     boost: {
       useGPUTranslations: true,
@@ -30,11 +30,11 @@ const ScatterPlot = (props) => {
       seriesThreshold: 5000
     },
     title: {
-      text: props.title || null
+      text: null
     },
     xAxis: {
       title: {
-        text: props.xAxisTitleText || null
+        text: null
       },
       labels: {
         enabled: false
@@ -43,7 +43,7 @@ const ScatterPlot = (props) => {
     },
     yAxis: {
       title: {
-        text: props.xAxisTitleText || null
+        text: null
       },
       labels: {
         enabled: false
@@ -57,19 +57,15 @@ const ScatterPlot = (props) => {
         turboThreshold: 0,
         animation: false,
         marker: {
-          radius: props.markerRadius
+          radius: numPoints < 5000 ? 4 : 0.2
         }
-      },
-      scatter: {
-        tooltip: props.tooltip
       }
     },
     legend: {
-      enabled: props.series.length > 1,
-      symbolHeight: 16,
-      symbolWidth: 16
+      enabled: props.series.length > 1
     },
-    series: props.series
+    series: props.series,
+    ...props.highchartsConfig
   }
 
   return <ReactHighcharts config={config}/>
@@ -77,68 +73,7 @@ const ScatterPlot = (props) => {
 
 ScatterPlot.propTypes = {
   series: PropTypes.array,
-  highlightSeries: PropTypes.array,
-  height: PropTypes.number
+  highchartsConfig: PropTypes.object
 }
 
-const colourizeSingleSeries = (series) => {
-  const min = Math.min(...series.data.map((point) => point.z))
-  const max = Math.max(...series.data.map((point) => point.z))
-
-  const seriesData = series.data.map((point) => {
-    const saturation = max > min ? (point.z - min) / (max - min) * 100 : 0
-    return {
-      x: point.x,
-      y: point.y,
-      z: Math.round10(point.z, -2),
-      name: point.name,
-      color: Color(`hsl(230, ${saturation}%, 50%)`).rgb().toString()
-    }
-  })
-
-  return { data: seriesData }
-}
-
-const colourizeMultipleSeries = (highlightSeries) =>
-  (series) => ({
-    name: series.name,
-    data: series.data.map((point) => {
-      if (!highlightSeries.length || highlightSeries.includes(series.name)) {
-        return point
-      } else {
-        return {
-          ...point,
-          color: `lightgrey`
-        }
-      }
-    })
-  })
-
-// If there’s only one series, add colour and round value; otherwise pass through
-const mapSeriesToColourizedSeries = mapProps(({series, highlightSeries}) => ({
-  series: series.length === 1 ?
-    series.map(colourizeSingleSeries) :
-    series.map(colourizeMultipleSeries(highlightSeries))
-}))
-
-// Add tooltip and radius depending on the number of series and points
-const withTooltipAndMarkerRadius = withProps(({series}) => {
-  const countPoints = (series) => {
-    return series.reduce((acc, aSeries) => acc + aSeries.data.length, 0)
-  }
-
-  return {
-    tooltip: series.length > 1 ?
-      {
-        headerFormat: `<b>Cluster {series.name}</b><br>`,
-        pointFormat: `{point.name}`
-      } :
-      {
-        headerFormat: `<b>{point.key}</b><br>`,
-        pointFormat: `Expression level: {point.z}`
-      },
-    markerRadius: countPoints(series) < 5000 ? 4 : 0.2
-  }
-})
-
-export default compose(mapSeriesToColourizedSeries, withTooltipAndMarkerRadius)(ScatterPlot)
+export default ScatterPlot
