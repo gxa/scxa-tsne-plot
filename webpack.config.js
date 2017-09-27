@@ -5,7 +5,7 @@ var CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   entry: {
     tSnePlotDemo: ['whatwg-fetch', 'babel-polyfill', './html/Demo.js'],
-    dependencies: ['color', 'prop-types', 'react', 'react-dom', 'react-highcharts', 'recompose', 'urijs']
+    dependencies: ['color', 'prop-types', 'react', 'react-dom', 'react-highcharts', 'urijs']
   },
 
   output: {
@@ -78,4 +78,3 @@ module.exports = {
     port: 9000
   }
 };
-
