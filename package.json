@@ -6,7 +6,8 @@
   "scripts": {
     "dist": "NODE_ENV=production webpack --optimize-minimize",
     "prepublishOnly": "rm -rf lib && babel src -d lib --copy-files",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "posttest": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "jest": {
     "moduleNameMapper": {
@@ -14,7 +15,9 @@
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
     },
     "automock": false,
-    "setupFiles": [ "./__mocks__/fetchMock.js" ]
+    "setupFiles": [
+      "<rootDir>/__mocks__/fetchMock.js"
+    ]
   },
   "author": "Expression Atlas developers <arrayexpress-atlas@ebi.ac.uk>",
   "collaborators": [
@@ -29,6 +32,7 @@
   },
   "dependencies": {
     "color": "^2.0.0",
+    "deepmerge": "^1.5.2",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -36,27 +40,27 @@
     "urijs": "^1.18.12"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
-    "css-loader": "^0.23.1",
+    "coveralls": "^2.13.1",
+    "css-loader": "^0.28.7",
     "enzyme": "^2.9.1",
-    "file-loader": "^0.8.4",
+    "file-loader": "^0.11.2",
+    "highcharts-series-generator": "^1.0.1",
     "image-webpack-loader": "^1.6.3",
-    "imports-loader": "^0.6.5",
-    "jest": "^20.0.4",
+    "imports-loader": "^0.7.1",
+    "jest": "^21.1.0",
     "jest-fetch-mock": "^1.2.1",
-    "json-loader": "^0.5.4",
     "react-test-renderer": "^15.6.1",
-    "request": "^2.75.0",
-    "style-loader": "^0.13.0",
-    "webpack": "^3.5.5",
-    "webpack-dev-server": "^2.7.1",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2",
     "whatwg-fetch": "^2.0.3"
   }
 }
