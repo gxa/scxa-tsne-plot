@@ -12,40 +12,8 @@ const Highcharts = ReactHighcharts.Highcharts
 HighchartsExporting(Highcharts)
 HighchartsBoost(Highcharts)
 
-const colorizeAndRound3DSeries = (series) => {
-  const min = Math.min(...series.data.map((point) => point.z))
-  const max = Math.max(...series.data.map((point) => point.z))
-
-  const seriesData = series.data.map((point) => {
-    const saturation = max > min ? (point.z - min) / (max - min) * 100 : 0
-    return {
-      x: point.x,
-      y: point.y,
-      z: Math.round10(point.z, -2),
-      name: point.name,
-      color: Color(`hsl(230, ${saturation}%, 50%)`).rgb().toString()
-    }
-  })
-
-  return { data: seriesData }
-}
-
-const getTooltipFormat = (hasMoreThanOneSeries) => {
-  if (hasMoreThanOneSeries) {
-    return {
-      headerFormat: `<b>Cluster {series.name}</b><br>`,
-      pointFormat: `{point.name}`
-    }
-  } else {
-    return {
-      headerFormat: `<b>{point.key}</b><br>`,
-      pointFormat: `Expression level: {point.z}`
-    }
-  }
-}
-
 const countPoints = (series) => {
-  return series.reduce((acc, serie) => acc + serie.data.length, 0)
+  return series.reduce((acc, aSeries) => acc + aSeries.data.length, 0)
 }
 
 class ManagedScatterPlot extends React.Component {
@@ -70,13 +38,6 @@ class ManagedScatterPlot extends React.Component {
 
             // In principle the chart won’t change from clusters to gene expression, so this might be safe to remove
             chart.legend.update({enabled: false}, false)
-            chart.update({
-              plotOptions: {
-                scatter: {
-                  tooltip: getTooltipFormat(false)
-                }
-              }
-            }, false)
           } else {
             json.forEach((series) => chart.addSeries(series, false))
           }
@@ -165,9 +126,6 @@ class ManagedScatterPlot extends React.Component {
               radius: countPoints(sourceUrlFetch.value) < 5000 ? 4 : 0.2
             }
           },
-          scatter: {
-            tooltip: getTooltipFormat(sourceUrlFetch.value.length > 1)
-          }
         },
         legend: {
           enabled: sourceUrlFetch.value.length > 1,
