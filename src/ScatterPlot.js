@@ -8,7 +8,7 @@ import deepmerge from 'deepmerge'
 
 const Highcharts = ReactHighcharts.Highcharts
 HighchartsExporting(Highcharts)
-HighchartsBoost(Highcharts)
+// HighchartsBoost(Highcharts)
 
 const highchartsBaseConfig = {
   credits: {
