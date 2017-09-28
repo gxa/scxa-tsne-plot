@@ -2,10 +2,12 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import fetchMock from 'fetch-mock'
 import Enzyme from 'enzyme'
-import {shallow} from 'enzyme'
+import {shallow, mount} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
 Enzyme.configure({ adapter: new Adapter() })
+
+import HighchartsSeriesGenerator from 'highcharts-series-generator'
 
 import PlotLoader from '../src/PlotLoader'
 
@@ -17,6 +19,28 @@ describe(`PlotLoader`, () => {
 
   beforeEach(() => {
     fetchMock.restore()
+  })
+
+  test(`seriesMapper is applied to the data received before passing them to ScatterPlot`, async () => {
+    const seriesNames = [`Series 1`, `Series 2`, `Series 3`, `Series 4`, `Series 5`]
+    const maxPointsPerSeries = 1000
+    const series = HighchartsSeriesGenerator.generate(seriesNames, maxPointsPerSeries)
+    fetchMock.get(defaultProps.atlasUrl + defaultProps.sourceUrl, JSON.stringify(series))
+
+    const seriesMapper = (series) => series.map((aSeries) => ({...aSeries, anotherProperty: `Glip glop`}))
+
+    const wrapper = shallow(<PlotLoader {...defaultProps} seriesMapper={seriesMapper}/>)
+    await wrapper.instance().componentDidMount()
+    wrapper.update()
+
+    const scatterPlotWrapper = wrapper.find(`ScatterPlot`)
+    scatterPlotWrapper.prop(`series`).forEach((aSeries) => {
+      expect(aSeries).toHaveProperty(`anotherProperty`, `Glip glop`)
+      expect(aSeries).toHaveProperty(`name`)
+      expect(typeof aSeries.name).toBe(`string`)
+      expect(aSeries).toHaveProperty(`data`)
+      expect(Array.isArray(aSeries.data)).toBe(true)
+    })
   })
 
   test(`displays an unspecific error message if fetch fails`, async () => {
