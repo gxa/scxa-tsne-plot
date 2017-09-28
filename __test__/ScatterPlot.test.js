@@ -30,6 +30,42 @@ describe(`ScatterPlot`, () => {
     expect(tree).toMatchSnapshot()
   })
 
+  test(`marker radius changes depending on number of total points`, () => {
+    const wrapper = mount(<ScatterPlot series={[]}/>)
+
+    const longSeriesName = `Series with 5,000 points`
+    const longSeriesData = []
+    for (let i = 0 ; i < 5000 ; i++) {
+      longSeriesData.push({
+        x: 0,
+        y: 0
+      })
+    }
+    const longSeries = {
+      name: longSeriesName,
+      data: longSeriesData
+    }
+    wrapper.setProps({ series: [longSeries] }).mount()
+    const markerRadiusLongSeries = wrapper.find(`HighchartsChart`).prop(`config`).plotOptions.series.marker.radius
+
+    const shortSeriesName = `Series with 4,999 points`
+    const shortSeriesData = []
+    for (let i = 0 ; i < 4999 ; i++) {
+      shortSeriesData.push({
+        x: 0,
+        y: 0
+      })
+    }
+    const shortSeries = {
+      name: shortSeriesName,
+      data: shortSeriesData
+    }
+    wrapper.setProps({ series: [shortSeries] }).mount()
+    const markerRadiusShortSeries = wrapper.find(`HighchartsChart`).prop(`config`).plotOptions.series.marker.radius
+
+    expect(markerRadiusLongSeries).toBeLessThan(markerRadiusShortSeries)
+  })
+
   test(`matches snapshot with randomized series`, () => {
     const seed = `A hair, Morty. I need one of your hairs. This isn’t Game of Thrones.`
     const seriesNames = [`Series 1`, `Series 2`, `Series 3`, `Series 4`, `Series 5`]
@@ -38,7 +74,6 @@ describe(`ScatterPlot`, () => {
     const tree = shallow(<ScatterPlot series={series}/>)
     expect(tree).toMatchSnapshot()
   })
-
 
   test(`doesn’t check for unique names in the same series or among different series`, () => {
     const series = {
