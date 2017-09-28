@@ -6,8 +6,6 @@ import HighchartsBoost from 'highcharts/modules/boost'
 
 import deepmerge from 'deepmerge'
 
-import './util/MathRound10'
-
 const Highcharts = ReactHighcharts.Highcharts
 HighchartsExporting(Highcharts)
 HighchartsBoost(Highcharts)
