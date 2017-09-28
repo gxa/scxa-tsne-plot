@@ -1,11 +1,3 @@
-# Single Cell Atlas t-SNE scatter plot
+# Single Cell Expression Atlas t-SNE scatter plot [![Build Status](https://travis-ci.org/gxa/scxa-tsne-plot.svg?branch=master)](https://travis-ci.org/gxa/scxa-tsne-plot) [![Coverage Status](https://coveralls.io/repos/github/gxa/scxa-tsne-plot/badge.svg?branch=master)](https://coveralls.io/github/gxa/scxa-tsne-plot?branch=master) [![Dependency Status](https://gemnasium.com/badges/github.com/gxa/scxa-tsne-plot.svg)](https://gemnasium.com/github.com/gxa/scxa-tsne-plot)
 
-An aesthetically-opinionated Highcharts scatter plot which gets the displayed data over the network using `fetch`. Tailored and somewhat coupled (read below) to [Single Cell Expression Atlas](https://github.com/gxa/atlas/tree/master/sc). However it is simple and general enough to be easily modifiable. 
-
-There are two render modes: cluster mode and gene expression mode.
-
-## Cluster mode
-The request returns multiple series in an array, each one labelled with the cluster ID and the points have plane coordinates `x` and `y` plus a descriptive `name`. Each series has a distinctive colour and shape. Colours were chosen using http://tools.medialab.sciences-po.fr/iwanthue/. The tooltip displays the point name and its cluster.  
-
-## Gene expression mode
-The  data has only one series whose points have two coordinates, `x` and `y`, and a `z` value which is interpreted as the expression level of the requested gene. The points are coloured linearly from grey to blue according to the minimum and maximum expression level. The exact expression level is displayed in the point tooltip along with the point name.
+An aesthetically-opinionated Highcharts scatter plot which gets the displayed data over the network using `fetch`. Tailored and somewhat coupled (read below) to [Single Cell Expression Atlas](https://github.com/gxa/atlas/tree/master/sc). However it is simple and general enough to be easily modifiable.
