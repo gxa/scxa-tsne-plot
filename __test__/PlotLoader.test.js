@@ -21,6 +21,19 @@ describe(`PlotLoader`, () => {
     fetchMock.restore()
   })
 
+  test(`error boundary renders “fallback” UI with an error message`, () => {
+    const errorMessage = `This is an error message!`
+    const error = {
+      toString: () => errorMessage
+    }
+
+    const wrapper = shallow(<PlotLoader {...defaultProps}/>)
+    wrapper.instance().componentDidCatch(error)
+    wrapper.update()
+    expect(wrapper.find(`.scxa-error`)).toHaveLength(1)
+    expect(wrapper.text()).toBe(errorMessage)
+  })
+
   test(`seriesMapper is applied to the data received before passing them to ScatterPlot`, async () => {
     const seriesNames = [`Series 1`, `Series 2`, `Series 3`, `Series 4`, `Series 5`]
     const maxPointsPerSeries = 1000
