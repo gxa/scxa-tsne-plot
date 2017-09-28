@@ -7,8 +7,12 @@ import HighchartsBoost from 'highcharts/modules/boost'
 import deepmerge from 'deepmerge'
 
 const Highcharts = ReactHighcharts.Highcharts
-HighchartsExporting(Highcharts)
-// HighchartsBoost(Highcharts)
+
+// Only apply modules if Highchats isn’t a mock -- necessary to work with Boost and not break tests
+if (Highcharts.getOptions()) {
+  HighchartsExporting(Highcharts)
+  HighchartsBoost(Highcharts)
+}
 
 const highchartsBaseConfig = {
   credits: {
@@ -72,7 +76,7 @@ const ScatterPlot = (props) => {
         }
       },
       { series: props.series },
-      props.highChartsConfig
+      props.highchartsConfig
     ])
 
   return <ReactHighcharts config={config}/>
@@ -86,7 +90,7 @@ ScatterPlot.propTypes = {
 }
 
 ScatterPlot.defaultProps = {
-  highChartsConfig: {},
+  highchartsConfig: {},
   overwriteConfig: false
 }
 

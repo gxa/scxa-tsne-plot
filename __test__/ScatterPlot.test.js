@@ -1,7 +1,7 @@
 import React from 'react'
 // Highcharts can only be shallow-rendered unless it’s mocked, see __mocks__/highcharts.js
 import Enzyme from 'enzyme'
-import {shallow} from 'enzyme'
+import {shallow, mount} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
 import HighchartsSeriesGenerator from 'highcharts-series-generator'
@@ -13,7 +13,16 @@ Enzyme.configure({ adapter: new Adapter() })
 describe(`ScatterPlot`, () => {
 
   test(`merges additional options for Highcharts`, () => {
-    
+    const highchartsConfig = {
+      chart: {
+        height: `50%`, // existing property, overwritten
+        width: `50%`   // new property
+      }
+    }
+    const wrapper = mount(<ScatterPlot series={[]} highchartsConfig={highchartsConfig}/>)
+    const highchartsWrapper = wrapper.find(`HighchartsChart`)
+    expect(highchartsWrapper.prop(`config`)).toHaveProperty(`chart.height`, `50%`)
+    expect(highchartsWrapper.prop(`config`)).toHaveProperty(`chart.width`, `50%`)
   })
 
   test(`with no series matches snapshot`, () => {
