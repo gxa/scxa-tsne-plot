@@ -8,11 +8,11 @@ import deepmerge from 'deepmerge'
 
 const Highcharts = ReactHighcharts.Highcharts
 
-// Only apply modules if Highchats isn’t a mock -- necessary to work with Boost and not break tests
-if (Highcharts.getOptions()) {
+// Only apply modules if Highcharts isn’t a *good* mock -- Boost/Exporting break tests
+// if (Highcharts.getOptions()) {
   HighchartsExporting(Highcharts)
   HighchartsBoost(Highcharts)
-}
+// }
 
 const highchartsBaseConfig = {
   credits: {
