@@ -21,6 +21,27 @@ describe(`PlotLoader`, () => {
     fetchMock.restore()
   })
 
+  test(`changes in endpoint props change state accordingly`, async () => {
+    const seriesNames = [`Series 1`, `Series 2`, `Series 3`, `Series 4`, `Series 5`]
+    const maxPointsPerSeries = 1000
+    const series1 = HighchartsSeriesGenerator.generate(seriesNames, maxPointsPerSeries)
+    const series2 = HighchartsSeriesGenerator.generate([seriesNames[0]], maxPointsPerSeries)
+    fetchMock.get(defaultProps.atlasUrl + `rick`, JSON.stringify(series1))
+             .get(defaultProps.atlasUrl + `morty`, JSON.stringify(series2))
+
+    const wrapper = shallow(<PlotLoader atlasUrl={defaultProps.atlasUrl} sourceUrl={`rick`}/>)
+    await wrapper.instance().componentDidMount()
+    wrapper.update()
+
+    expect(wrapper.state(`series`)).toHaveLength(series1.length)
+
+    await wrapper.instance().componentWillReceiveProps({
+      atlasUrl: defaultProps.atlasUrl,
+      sourceUrl: `morty`
+    })
+    expect(wrapper.state(`series`)).toHaveLength(series2.length)
+  })
+
   test(`error boundary renders “fallback” UI with an error message`, () => {
     const errorMessage = `This is an error message!`
     const error = {
@@ -30,6 +51,7 @@ describe(`PlotLoader`, () => {
     const wrapper = shallow(<PlotLoader {...defaultProps}/>)
     wrapper.instance().componentDidCatch(error)
     wrapper.update()
+
     expect(wrapper.find(`.scxa-error`)).toHaveLength(1)
     expect(wrapper.text()).toBe(errorMessage)
   })
@@ -59,8 +81,8 @@ describe(`PlotLoader`, () => {
   test(`displays an unspecific error message if fetch fails`, async () => {
     fetchMock.get(defaultProps.atlasUrl + defaultProps.sourceUrl, { throws: `Server unreachable` })
     const wrapper = shallow(<PlotLoader {...defaultProps} />)
-
     await wrapper.instance().componentDidMount()
+
     expect(wrapper.state(`errorMessage`)).not.toBe(null)
     wrapper.update()
     expect(wrapper.find(`.scxa-error`)).toHaveLength(1)
@@ -69,8 +91,8 @@ describe(`PlotLoader`, () => {
   test(`displays a fetch error if non-JSON data is returned`, async () => {
     fetchMock.get(defaultProps.atlasUrl + defaultProps.sourceUrl, `<html></html>`)
     const wrapper = shallow(<PlotLoader {...defaultProps} />)
-
     await wrapper.instance().componentDidMount()
+
     expect(wrapper.state(`errorMessage`)).toMatch(/^FetchError:.*$/)
     wrapper.update()
     expect(wrapper.find(`.scxa-error`)).toHaveLength(1)
@@ -79,7 +101,9 @@ describe(`PlotLoader`, () => {
   // Indirectly we’re testing the error boundary, I don’t know how to do this with Enzyme, or if it’s possible
   test(`throws an error if JSON payload is not an array`, async () => {
     console.error = jest.fn()
-    fetchMock.get(defaultProps.atlasUrl + defaultProps.sourceUrl, JSON.stringify({Rick: `I turned myself into a pickle, Morty!`}))
+    fetchMock.get(
+      defaultProps.atlasUrl + defaultProps.sourceUrl,
+       JSON.stringify({Rick: `I turned myself into a pickle, Morty!`}))
     const wrapper = shallow(<PlotLoader {...defaultProps}/>)
 
     await wrapper.instance().componentDidMount()
@@ -90,8 +114,8 @@ describe(`PlotLoader`, () => {
   test(`changes in props unrelated to the queried endpoint don’t fetch new data`, async () => {
     fetchMock.get(defaultProps.atlasUrl + defaultProps.sourceUrl, JSON.stringify([]))
     const wrapper = shallow(<PlotLoader {...defaultProps}/>)
-
     await wrapper.instance().componentDidMount()
+
     const fetchCount = fetchMock.calls().matched.length + fetchMock.calls().unmatched.length
 
     wrapper.setProps({
@@ -99,8 +123,13 @@ describe(`PlotLoader`, () => {
         height: 1500
       }
     })
+    let newFetchCount = fetchMock.calls().matched.length + fetchMock.calls().unmatched.length
+    expect(newFetchCount).toBe(fetchCount)
 
-    const newFetchCount = fetchMock.calls().matched.length + fetchMock.calls().unmatched.length
+    wrapper.setProps({
+      seriesMapper: (series) => series.map((aSeries) => anotherSeries)
+    })
+    newFetchCount = fetchMock.calls().matched.length + fetchMock.calls().unmatched.length
     expect(newFetchCount).toBe(fetchCount)
   })
 
@@ -119,7 +148,7 @@ describe(`PlotLoader`, () => {
     expect(newFetchCount).toBeGreaterThan(fetchCount)
   })
 
-  // The test above can be thought of liek this:
+  // The test above can be thought of like this:
   // test(`changes in props that change the queried endpoint fetch new data`, async () => {
   //   const wrapper = shallow(<PlotLoader {...defaultProps}/>)
   //   wrapper.instance()._fetchAndSetState = jest.fn()

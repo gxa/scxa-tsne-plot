@@ -21,6 +21,8 @@ class PlotLoader extends React.Component {
       loading: false,
       errorMessage: null
     }
+
+    this._fetchAndSetState = this._fetchAndSetState.bind(this)
   }
 
   render() {
@@ -38,11 +40,11 @@ class PlotLoader extends React.Component {
     )
   }
 
-  _fetchAndSetState() {
+  _fetchAndSetState(baseUrl, relUrl) {
     this.setState({
       loading: true
     })
-    return _fetch(this.props.atlasUrl, this.props.sourceUrl)
+    return _fetch(baseUrl, relUrl)
       .then((responseJson) => {
         this.setState({
           // timestamp: Date.now(),
@@ -61,13 +63,21 @@ class PlotLoader extends React.Component {
   }
 
   componentDidMount() {
-    return this._fetchAndSetState()
+    return this._fetchAndSetState(this.props.atlasUrl, this.props.sourceUrl)
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.atlasUrl !== this.props.atlasUrl || nextProps.sourceUrl !== this.props.sourceUrl) {
-      return this._fetchAndSetState()
+      return this._fetchAndSetState(nextProps.atlasUrl, nextProps.sourceUrl)
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.seriesMapper !== this.props.seriesMapper ||
+           nextProps.highchartsConfig !== this.props.highchartsConfig ||
+           nextState.series !== this.state.series ||
+           nextState.loading !== this.state.loading ||
+           nextState.errorMessage !== this.state.errorMessage
   }
 
   componentDidCatch(error, info) {
