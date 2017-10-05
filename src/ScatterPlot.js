@@ -77,7 +77,7 @@ const ScatterPlot = (props) => {
       },
       { series: props.series },
       props.highchartsConfig
-    ])
+    ], { arrayMerge: (destination, source) => source }) // Don’t merge
 
   return <ReactHighcharts config={config}/>
 }
