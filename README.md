@@ -1,3 +1,3 @@
 # Single Cell Expression Atlas t-SNE scatter plot [![Build Status](https://travis-ci.org/gxa/scxa-tsne-plot.svg?branch=master)](https://travis-ci.org/gxa/scxa-tsne-plot) [![Coverage Status](https://coveralls.io/repos/github/gxa/scxa-tsne-plot/badge.svg?branch=master)](https://coveralls.io/github/gxa/scxa-tsne-plot?branch=master) [![Dependency Status](https://gemnasium.com/badges/github.com/gxa/scxa-tsne-plot.svg)](https://gemnasium.com/github.com/gxa/scxa-tsne-plot)
 
-An aesthetically-opinionated Highcharts scatter plot which gets the displayed data over the network using `fetch`. Tailored but very loosely coupled to [Single Cell Expression Atlas](https://github.com/gxa/atlas/tree/master/sc).
+An aesthetically-opinionated Highcharts scatter plot which gets the displayed data over the network using async-await and `fetch`. Tailored but very loosely coupled to [Single Cell Expression Atlas](https://github.com/gxa/atlas/tree/master/sc).
